@@ -3,7 +3,7 @@
 
 #define MAX_NUMBER_OF_CONTEXTS 256
 #define MAX_NUMBER_OF_ENTITIES 24
-#define MAX_NUMBER_OF_CONTEXTGROUPS 24
+#define MAX_NUMBER_OF_CONTEXTGROUPS 128
 
 typedef unsigned long Time_t;
 typedef unsigned char Byte_t;
