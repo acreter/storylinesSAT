@@ -7,10 +7,10 @@
 Storylines *
 storylines_init(Time_t max_time) {
 	Storylines * sl = malloc(sizeof (Storylines) + sizeof (Event) * (max_time + 1) - 1); /* yes, this is correct */
-	sl->entities = acvector_create(32, sizeof (Entity), 2);
-	sl->contexts = acvector_create(256, sizeof (Context), 2);
+	sl->entities = acvector_create(MAX_NUMBER_OF_ENTITIES, sizeof (Entity), 2);
+	sl->contexts = acvector_create(MAX_NUMBER_OF_CONTEXTS, sizeof (Context), 2);
 	sl->ec_map = malloc(sizeof (acVector*) * (max_time + 1) * 2);
-	sl->contextgroups = acvector_create(128, sizeof(acVector**), 2);
+	sl->contextgroups = acvector_create(MAX_NUMBER_OF_CONTEXTGROUPS, sizeof(acVector**), 2);
 	sl->max_time = max_time;
 	sl->prepared = 0;
 
