@@ -1,0 +1,3 @@
+[submodule "src/acvector"]
+	path = src/acvector
+	url = https://github.com/acreter/acvector.git
