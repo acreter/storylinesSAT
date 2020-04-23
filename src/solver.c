@@ -51,6 +51,9 @@ storylines_solve(Storylines* sl) {
 
 	while(!result) {
 		number_of_layers += 1;
+#ifndef NDEBUG
+		printf("Testing with %ld layers...\n", number_of_layers);
+#endif
 		csolver_release(solver);
 		solver = build(lits, sl->contextgroups, number_of_layers);
 		start = clock();
@@ -58,6 +61,9 @@ storylines_solve(Storylines* sl) {
 		end = clock();
 		r->time_spent_in_solver += ((double) (end - start)) / CLOCKS_PER_SEC;
 	}
+#ifndef NDEBUG
+	printf("Solution found with %ld blockcrossings\n", number_of_layers - 1);
+#endif
 
 	r->number_of_block_crossings = number_of_layers - 1;
 
