@@ -29,4 +29,4 @@ the interface described in [`src/csolver.h`](src/csolver.h), for example
 [CaDiCaL](https://github.com/acreter/cadical) or [minisat](https://github.com/acreter/minisat). For the drawer module you must also link `libplot.a`
 and `lm.a`.
 
-The API for the provided libraries is described in [`slsolver.h`](sldolver.h) and [`sldrawer.h`](sldrawer.h) respectively.
+The API for the provided libraries is described in [`slsolver.h`](slsolver.h) and [`sldrawer.h`](sldrawer.h) respectively.
