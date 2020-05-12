@@ -10,14 +10,14 @@ Building
 ========
 
 The software provides two libraries:
-	- libstorylines.a
-	- libstorylinesdrawer.a
+- libstorylines.a
+- libstorylinesdrawer.a
 
 The solver module itself only depends on libc.
 The drawer module additionally depends on [plotutils](https://www.gnu.org/software/plotutils/).
 
 Before building any module make sure to initialize the git submodule with `git submodule init && git submodule update`.
-To build the solver module run `make storylines`. For the drawer module run `make draw`.
+To build the solver module run `make build/libslsolve.a`. For the drawer module run `make build/libsldraw.a`.
 Alternatively `make all` builds both.
 
 Usage
