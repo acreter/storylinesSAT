@@ -10,8 +10,8 @@ Building
 ========
 
 The software provides two libraries:
-- libstorylines.a
-- libstorylinesdrawer.a
+- libslsolve.a
+- libsldraw.a
 
 The solver module itself only depends on libc.
 The drawer module additionally depends on [plotutils](https://www.gnu.org/software/plotutils/).
