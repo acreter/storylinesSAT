@@ -1,13 +1,23 @@
-all: storylines draw
+all: build/libslsolve.a build/libsldraw.a
 
-storylines:
-	make -C src/
+build/libslsolve.a: $(patsubst src/%.c,src/%.o,$(wildcard src/*.c)) src/acvector/src/acvector.o
+	mkdir -p build
+	$(AR) rcs $@ $^
 
-draw:
-	make -C src/draw
+build/libsldraw.a: $(patsubst src/draw/%.c,src/draw/%.o,$(wildcard src/draw/*.c)) src/acvector/src/acvector.o
+	mkdir -p build
+	$(AR) rcs $@ $^
+
+src/acvector/src/acvector.o: src/acvector/src/acvector.c src/acvector/src/acvector.h src/acvector/makefile
+	make -C src/acvector
+
+%.o: %.c
+	$(CC) -o $@ -c -O3 -DNDEBUG -Wall -Isrc/acvector/src/ -Isrc/ -I./ $<
 
 clean:
-	make -C src/ clean
-	make -C src/draw clean
+	make -C src/acvector clean
+	rm -rf build
+	rm -f src/*.o
+	rm -f src/draw/*.o
 
-.PHONY: all storylines draw clean
+.PHONY: all clean
