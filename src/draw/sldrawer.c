@@ -31,7 +31,7 @@ storylines_draw_solution(Storylines* sl, Solution s, char* filename, char* type)
 	acVector** v1;
 	ACVECTOR_FOREACH(e, sl->entities) {
 		counter = 0;
-		v1 = acvector_at(&v, e->start);
+		v1 = acvector_get_at(&v, e->start);
 		ACVECTOR_FOREACH(e1, *v1) {
 			if (*e1 == e) {
 				old_y = counter;
@@ -46,7 +46,7 @@ storylines_draw_solution(Storylines* sl, Solution s, char* filename, char* type)
 		for (unsigned int i = e->start + 1; i <= e->end; i += 1) {
 			middle_point = (i-1)*2+1;
 			counter = 0;
-			v1 = acvector_at(&v, i);
+			v1 = acvector_get_at(&v, i);
 			ACVECTOR_FOREACH(e1, *v1) {
 				if (*e1 == e) {
 					index = counter;
