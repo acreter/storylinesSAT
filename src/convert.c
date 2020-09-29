@@ -6,8 +6,8 @@
 long**
 storylines_solution_convert(Storylines* sl, Solution s) {
 	acVector* v = (acVector*) s;
-	long** converted = malloc((v->nElements + 1) * sizeof (long*));
-	converted[v->nElements] = 0;
+	long** converted = malloc((v->number_of_elements + 1) * sizeof (long*));
+	converted[v->number_of_elements] = 0;
 
 	acVector** sol;
 	Entity** e;
@@ -15,8 +15,8 @@ storylines_solution_convert(Storylines* sl, Solution s) {
 	unsigned int counter1 = 0;
 	ACVECTOR_FOREACH(sol, v) {
 		counter1 = 0;
-		converted[counter] = malloc(((**sol).nElements + 1) * sizeof (long));
-		converted[counter][(**sol).nElements] = 0;
+		converted[counter] = malloc(((**sol).number_of_elements + 1) * sizeof (long));
+		converted[counter][(**sol).number_of_elements] = 0;
 		ACVECTOR_FOREACH(e, *sol) {
 			if (*e == &(sl->dummy)) {
 				converted[counter][counter1] = -1;

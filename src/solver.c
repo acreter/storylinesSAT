@@ -68,11 +68,11 @@ storylines_solve(Storylines* sl) {
 	r->number_of_block_crossings = number_of_layers - 1;
 
 #ifndef NDEBUG
-	debug_dump_solver_table(solver, lits, sl->entities->nElements, number_of_layers);
+	debug_dump_solver_table(solver, lits, sl->entities->number_of_elements, number_of_layers);
 #endif
 
 	/* TODO: put this into its own function */
-	acVector* sol = acvector_create(sl->max_time + SOLUTION_BUFFER, sizeof (acVector*), 2);
+	acVector* sol = acvector_create(sl->max_time + SOLUTION_BUFFER, sizeof (acVector*));
 	acVector* layer;
 	unsigned int cg_index = 0;
 	unsigned long layer_index = 0;
@@ -95,7 +95,7 @@ storylines_solve(Storylines* sl) {
 			case cleanup:
 				for (unsigned long i = delta_layer_index; i + 1 < layer_index; i += 1) {
 					layer = sort_entities_at(delta_layer_index, t, solver, sl, lits->number_of_literals);
-					acvector_push_back(&sol, &layer);
+					acvector_append(&sol, &layer);
 				}
 
 				layer = sort_entities_at(layer_index, t, solver, sl, lits->number_of_literals);
@@ -112,7 +112,7 @@ storylines_solve(Storylines* sl) {
 			}
 		}
 
-		acvector_push_back(&sol, &layer);
+		acvector_append(&sol, &layer);
 	}
 
 	literals_release(&lits);
@@ -239,14 +239,14 @@ seperate_entities(acVector** contextgroup, Context* c) {
 	ACVECTOR_FOREACH(e, *contextgroup) {
 		for (unsigned int i = 0; i < c->size; i += 1) {
 			if (c->members[i] == (**e).alias) {
-				acvector_push_back(&(se->in_context), e);
+				acvector_append(&(se->in_context), e);
 				added = 1;
 				break;
 			}
 		}
 
 		if (!added) {
-			acvector_push_back(&(se->not_in_context), e);
+			acvector_append(&(se->not_in_context), e);
 		}
 
 		added = 0;
@@ -260,14 +260,14 @@ add_layer_independent_clauses(CSolver * s, Literals* lits, acVector* contextgrou
 	int * clause = malloc((number_of_layers + 2) * sizeof(int));
 	clause[number_of_layers] = 0;
 	/* q_l^r | ... | q_l^nLayers */
-	for(unsigned int i = 0; i < contextgroups->nElements; ++i){
+	for(unsigned int i = 0; i < contextgroups->number_of_elements; ++i){
 		for(unsigned int j = 0; j < number_of_layers; ++j){
 			clause[j] = lits->q_starts_at + i + lits->number_of_literals * j;
 		}
 		csolver_aclausezt(s, clause);
 	}
 
-	for(unsigned int i = 1; i < contextgroups->nElements; ++i){
+	for(unsigned int i = 1; i < contextgroups->number_of_elements; ++i){
 		for(unsigned int j = 0; j < number_of_layers; ++j){
 			for(unsigned int r = 0; r <= j; ++r){
 				clause[r] = lits->q_starts_at + i - 1 + lits->number_of_literals * r;
@@ -285,14 +285,14 @@ sort_entities_at(unsigned long layer_index, unsigned int ec_map_index, CSolver* 
 	Entity** e = 0;
 	Entity** e1 = 0;
 	unsigned int index = 0;
-	acVector* result = acvector_create(sl->entities->nElements * 2, sizeof(Entity*), 2);
+	acVector* result = acvector_create(sl->entities->number_of_elements * 2, sizeof(Entity*));
 
 	ACVECTOR_FOREACH(e, sl->ec_map[ec_map_index * 2]) {
 		index = 0;
 		ACVECTOR_FOREACH(e1, result) {
 			/* NOTE: is this true?
 			 * if e under e1 */
-			if (csolver_val(s, (sl->entities->nElements * (**e1).id + (**e).id + 1) + number_of_lits * layer_index) > 0) {
+			if (csolver_val(s, (sl->entities->number_of_elements * (**e1).id + (**e).id + 1) + number_of_lits * layer_index) > 0) {
 				break;
 			}
 			index += 1;

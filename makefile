@@ -1,4 +1,4 @@
-all: build/libslsolve.a build/libsldraw.a
+all: build/libslsolve.a
 
 build/libslsolve.a: $(patsubst src/%.c,src/%.o,$(wildcard src/*.c)) src/acvector/src/acvector.o
 	mkdir -p build

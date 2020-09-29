@@ -21,9 +21,9 @@ storylines_draw_solution(Storylines* sl, Solution s, char* filename, char* type)
 	pl_openpl_r(plotter);
 
 #ifndef NDEBUG
-	printf("Drawing space: %d x %ld\n", 30, v->nElements * 2);
+	printf("Drawing space: %d x %ld\n", 30, v->number_of_elements * 2);
 #endif
-	pl_space_r(plotter, 0, 0, 100, v->nElements * 2);
+	pl_space_r(plotter, 0, 0, 100, v->number_of_elements * 2);
 	pl_pencolorname_r(plotter, "black");
 
 	Entity* e, ** e1;

@@ -16,7 +16,7 @@ solution_add_seperators_single_layer(acVector* result, acVector* ec_map_context_
 		skip = c ? c->size - 1: 0;
 		skip += index ? 1 : 0;
 		for (unsigned int i = 0; i < skip; i += 1) {
-			e = acvector_next(&result, e);
+			e += 1;
 		}
 		index += skip + 1;
 	}

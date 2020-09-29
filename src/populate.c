@@ -12,13 +12,13 @@ storylines_add_entity(Storylines * storylines,
 		unsigned int alias) {
 	if (time_ending < time_starting || time_ending > storylines->max_time) return 1;
 
-	Entity e = {storylines->entities->nElements, alias, time_starting, time_ending};
-	acvector_push_back(&(storylines->entities), &e);
+	Entity e = {storylines->entities->number_of_elements, alias, time_starting, time_ending};
+	acvector_append(&(storylines->entities), &e);
 	/* NOTE: careful with race conditions here */
-	Entity* ep = acvector_at(&(storylines->entities), storylines->entities->nElements - 1);
+	Entity* ep = acvector_get_at(&(storylines->entities), storylines->entities->number_of_elements - 1);
 
 	for (Time_t t = time_starting; t <= time_ending; t += 1) {
-		acvector_push_back(storylines->ec_map + t*2, &ep);
+		acvector_append(storylines->ec_map + t*2, &ep);
 	}
 
 	storylines->events[time_starting].starting = 1;
@@ -46,12 +46,12 @@ storylines_add_context(Storylines * storylines,
 	 * maybe a simple for loop might be better */
 	memcpy(c.members, members, sizeof (unsigned int) * size);
 
-	acvector_push_back(&(storylines->contexts), &c);
+	acvector_append(&(storylines->contexts), &c);
 	/* NOTE: careful with race conditions here */
-	Context* ec = acvector_at(&(storylines->contexts), storylines->contexts->nElements - 1);
+	Context* ec = acvector_get_at(&(storylines->contexts), storylines->contexts->number_of_elements - 1);
 
 	for (Time_t t = time_starting; t <= time_ending; t += 1) {
-		acvector_push_back(storylines->ec_map + t*2 + 1, &ec);
+		acvector_append(storylines->ec_map + t*2 + 1, &ec);
 	}
 
 	storylines->events[time_starting].starting = 1;

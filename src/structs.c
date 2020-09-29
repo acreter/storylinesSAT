@@ -7,10 +7,10 @@
 Storylines *
 storylines_init(Time_t max_time) {
 	Storylines * sl = malloc(sizeof (Storylines) + sizeof (Event) * (max_time + 1) - 1); /* yes, this is correct */
-	sl->entities = acvector_create(MAX_NUMBER_OF_ENTITIES, sizeof (Entity), 2);
-	sl->contexts = acvector_create(MAX_NUMBER_OF_CONTEXTS, sizeof (Context), 2);
+	sl->entities = acvector_create(MAX_NUMBER_OF_ENTITIES, sizeof (Entity));
+	sl->contexts = acvector_create(MAX_NUMBER_OF_CONTEXTS, sizeof (Context));
 	sl->ec_map = malloc(sizeof (acVector*) * (max_time + 1) * 2);
-	sl->contextgroups = acvector_create(MAX_NUMBER_OF_CONTEXTGROUPS, sizeof(acVector**), 2);
+	sl->contextgroups = acvector_create(MAX_NUMBER_OF_CONTEXTGROUPS, sizeof(acVector**));
 	sl->max_time = max_time;
 	sl->prepared = 0;
 
@@ -20,8 +20,8 @@ storylines_init(Time_t max_time) {
 	sl->dummy.end = 0;
 
 	for (Time_t t = 0; t <= sl->max_time; t += 1) {
-		(sl->ec_map)[t*2] = acvector_create(8, sizeof (Entity*), 2);
-		(sl->ec_map)[t*2+1] = acvector_create(4, sizeof (Context*), 2);
+		(sl->ec_map)[t*2] = acvector_create(8, sizeof (Entity*));
+		(sl->ec_map)[t*2+1] = acvector_create(4, sizeof (Context*));
 		/* TODO own function? */
 		sl->events[t].starting = 0;
 		sl->events[t].ending = 0;
@@ -35,18 +35,18 @@ storylines_init(Time_t max_time) {
 void
 storylines_release(Storylines ** sl) {
 	Context* c;
-	ACVECTOR_FOREACH(c, ((**sl).contexts)) {
+	ACVECTOR_FOREACH(c, (**sl).contexts) {
 		free(c->members);
 	}
 
 	for (Time_t t = 0; t <= (**sl).max_time; t += 1) {
-		 acvector_release(((**sl).ec_map) + t*2);
-		 acvector_release(((**sl).ec_map) + t*2 + 1);
+		 acvector_destroy(((**sl).ec_map) + t*2);
+		 acvector_destroy(((**sl).ec_map) + t*2 + 1);
 	}
 
-	acvector_release(&((**sl).entities));
-	acvector_release(&((**sl).contexts));
-	acvector_release(&((**sl).contextgroups));
+	acvector_destroy(&((**sl).entities));
+	acvector_destroy(&((**sl).contexts));
+	acvector_destroy(&((**sl).contextgroups));
 	free((**sl).ec_map);
 	free(*sl);
 	*sl = 0;
@@ -60,11 +60,11 @@ literals_create(Storylines* sl) {
 	Literals* lits = malloc(sizeof (Literals));
 
 	/* x starts at 0 */	
-	lits->b_starts_at = (sl->entities->nElements * sl->entities->nElements) + 1;
-	lits->c_starts_at = lits->b_starts_at + sl->entities->nElements;
-	lits->q_starts_at = lits->c_starts_at + sl->entities->nElements;
+	lits->b_starts_at = (sl->entities->number_of_elements * sl->entities->number_of_elements) + 1;
+	lits->c_starts_at = lits->b_starts_at + sl->entities->number_of_elements;
+	lits->q_starts_at = lits->c_starts_at + sl->entities->number_of_elements;
 
-	lits->number_of_literals = lits->q_starts_at + sl->contextgroups->nElements;
+	lits->number_of_literals = lits->q_starts_at + sl->contextgroups->number_of_elements;
 
 	return lits;
 }
@@ -80,16 +80,16 @@ literals_release(Literals** l) {
 Seperated_Entities*
 seperated_entities_create() {
 	Seperated_Entities* se = malloc(sizeof (Seperated_Entities));
-	se->in_context = acvector_create(8, sizeof(Entity*), 2);
-	se->not_in_context = acvector_create(8, sizeof(Entity*), 2);
+	se->in_context = acvector_create(8, sizeof(Entity*));
+	se->not_in_context = acvector_create(8, sizeof(Entity*));
 
 	return se;
 }
 
 void
 seperated_entities_release(Seperated_Entities** se) {
-	acvector_release(&((**se).in_context));
-	acvector_release(&((**se).not_in_context));
+	acvector_destroy(&((**se).in_context));
+	acvector_destroy(&((**se).not_in_context));
 	free(*se);
 	*se = 0;
 
@@ -98,8 +98,8 @@ seperated_entities_release(Seperated_Entities** se) {
 
 void
 seperated_entities_reset(Seperated_Entities* se) {
-	se->in_context->nElements = 0;
-	se->not_in_context->nElements = 0;
+	se->in_context->number_of_elements = 0;
+	se->not_in_context->number_of_elements = 0;
 
 	return;
 }
@@ -110,10 +110,10 @@ storylines_result_release(Result** result) {
 	acVector** layer;
 	acVector* sol = (acVector*) r->solution;
 	ACVECTOR_FOREACH(layer, sol) {
-		acvector_release(layer);
+		acvector_destroy(layer);
 	}
 
-	acvector_release(&sol);
+	acvector_destroy(&sol);
 	r->solution = 0;
 	free(*result);
 	*result = 0;
@@ -206,7 +206,7 @@ debug_dump_ec_map(Storylines* sl, acVector** map) {
 
 void
 debug_dump_contextgroups(acVector* cg) {
-	if (!cg->nElements) {
+	if (!cg->number_of_elements) {
 		printf("No contextgroups found yet!\n\n");
 	} else {
 		printf("contextgroups:\n");

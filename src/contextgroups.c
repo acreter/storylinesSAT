@@ -1,5 +1,5 @@
-#include "slsolver.h"
 #include "structs.h"
+#include "slsolver.h"
 #include "contextgroups.h"
 #include <acvector.h>
 
@@ -8,7 +8,7 @@
 
 void
 print_contextgroups(Storylines* sl) {
-	printf("### PRINTING <%d> CONTEXTGROUPS ###\n", (sl->contextgroups)->nElements);
+	printf("### PRINTING <%d> CONTEXTGROUPS ###\n", (sl->contextgroups)->number_of_elements);
 	acVector*** a;
 	Entity** b;
 	Context** c;
@@ -27,7 +27,7 @@ print_contextgroups(Storylines* sl) {
 		printf("\n");
 
 	}
-	printf("### DONE PRINTING <%d> CONTEXTGROUPS ###\n\n", (sl->contextgroups)->nElements);
+	printf("### DONE PRINTING <%d> CONTEXTGROUPS ###\n\n", (sl->contextgroups)->number_of_elements);
 
 	return;
 }
@@ -50,7 +50,7 @@ find_contextgroups(Storylines* sl) {
 		if(sl->events[t].ending) {
 			if(last_meeting_started_flag) {
 				v = (sl->ec_map) + t*2;
-				acvector_push_back(&(sl->contextgroups), &v);
+				acvector_append(&(sl->contextgroups), &v);
 			}
 			last_meeting_started_flag = 0;
 			last_meeting_ended_at = t;
