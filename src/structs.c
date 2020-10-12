@@ -6,7 +6,7 @@
 
 Storylines *
 storylines_init(Time_t max_time) {
-	Storylines * sl = malloc(sizeof (Storylines) + sizeof (Event) * (max_time + 1) - 1); /* yes, this is correct */
+	Storylines * sl = malloc(sizeof (Storylines) + sizeof (Event) * (max_time + 1));
 	sl->entities = acvector_create(MAX_NUMBER_OF_ENTITIES, sizeof (Entity));
 	sl->contexts = acvector_create(MAX_NUMBER_OF_CONTEXTS, sizeof (Context));
 	sl->ec_map = malloc(sizeof (acVector*) * (max_time + 1) * 2);

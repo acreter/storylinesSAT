@@ -81,6 +81,6 @@ struct Storylines {
 	/* maps to the entity-context-map */
 	acVector* contextgroups;
 	Entity dummy;
-	Event events[1];
+	Event events[];
 };
 #endif
