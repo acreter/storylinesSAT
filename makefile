@@ -12,7 +12,7 @@ src/acvector/src/acvector.o: src/acvector/src/acvector.c src/acvector/src/acvect
 	make -C src/acvector
 
 %.o: %.c
-	$(CC) -o $@ -c -O3 -DNDEBUG -Wall -Isrc/acvector/src/ -Isrc/ -I./ $<
+	$(CC) -o $@ -c -O3 -DNDEBUG -Wall -Wextra -Isrc/acvector/src/ -Isrc/ -I./ $<
 
 clean:
 	make -C src/acvector clean
