@@ -4,7 +4,7 @@
 #include "slsolver.h"
 #include <acvector.h>
 
-#define ACVECTOR_FOREACH(c, v) for ((c) =  acvector_get_first((&(v)));\
+#define ACVECTOR_FOREACH(c, v) for ((c) = acvector_get_first((&(v)));\
 		 (void*) (c) <= acvector_get_last((&(v)));\
 		 (c) += 1)
 

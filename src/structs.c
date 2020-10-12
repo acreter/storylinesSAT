@@ -22,18 +22,17 @@ storylines_init(Time_t max_time) {
 	for (Time_t t = 0; t <= sl->max_time; t += 1) {
 		(sl->ec_map)[t*2] = acvector_create(8, sizeof (Entity*));
 		(sl->ec_map)[t*2+1] = acvector_create(4, sizeof (Context*));
-		/* TODO own function? */
 		sl->events[t].starting = 0;
-		sl->events[t].ending = 0;
-		sl->events[t].decline = 0;
-		sl->events[t].incline = 0;
+		sl->events[t].ending   = 0;
+		sl->events[t].decline  = 0;
+		sl->events[t].incline  = 0;
 	}
 
 	return sl;
 }
 
 void
-storylines_release(Storylines ** sl) {
+storylines_release(Storylines** sl) {
 	Context* c;
 	ACVECTOR_FOREACH(c, (**sl).contexts) {
 		free(c->members);
