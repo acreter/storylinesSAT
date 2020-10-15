@@ -14,12 +14,6 @@ storylines_add_entity(Storylines * storylines,
 
 	Entity e = {storylines->entities->number_of_elements, alias, time_starting, time_ending};
 	acvector_append(&(storylines->entities), &e);
-	/* NOTE: careful with race conditions here */
-	Entity* ep = acvector_get_at(&(storylines->entities), storylines->entities->number_of_elements - 1);
-
-	for (Time_t t = time_starting; t <= time_ending; t += 1) {
-		acvector_append(storylines->ec_map + t*2, &ep);
-	}
 
 	storylines->events[time_starting].starting = 1;
 	storylines->events[time_ending].ending = 1;
@@ -47,12 +41,6 @@ storylines_add_context(Storylines * storylines,
 	memcpy(c.members, members, sizeof (unsigned int) * size);
 
 	acvector_append(&(storylines->contexts), &c);
-	/* NOTE: careful with race conditions here */
-	Context* ec = acvector_get_at(&(storylines->contexts), storylines->contexts->number_of_elements - 1);
-
-	for (Time_t t = time_starting; t <= time_ending; t += 1) {
-		acvector_append(storylines->ec_map + t*2 + 1, &ec);
-	}
 
 	storylines->events[time_starting].starting = 1;
 	storylines->events[time_ending].ending = 1;

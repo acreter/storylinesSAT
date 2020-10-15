@@ -321,3 +321,21 @@ find_context_of(Entity* e, acVector* v) {
 
 	return 0;
 }
+
+void
+build_ec_map(Storylines* sl) {
+	Entity* e;
+	Context* c;
+	ACVECTOR_FOREACH(e, sl->entities) {
+		for (Time_t t = e->start; t <= e->end; t += 1) {
+			acvector_append(sl->ec_map + t*2, &e);
+		}
+	}
+
+	ACVECTOR_FOREACH(c, sl->contexts) {
+		for (Time_t t = c->start; t <= c->end; t += 1) {
+			acvector_append(sl->ec_map + t*2 + 1, &c);
+		}
+	}
+
+}

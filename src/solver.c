@@ -37,6 +37,7 @@ acVector* sort_entities_at(unsigned long layer_index, unsigned int ec_map_index,
 Result*
 storylines_solve(Storylines* sl) {
 	Result* r = malloc(sizeof (Result));
+	build_ec_map(sl);
 	r->time_spent_in_solver = 0;
 	find_contextgroups(sl);
 #ifndef NDEBUG

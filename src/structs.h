@@ -18,6 +18,7 @@ Literals* literals_create(Storylines*);
 Seperated_Entities* seperated_entities_create();
 void literals_release(Literals**);
 void seperated_entities_release(Seperated_Entities**);
+void build_ec_map(Storylines*);
 /* void seperated_entities_reset(Seperated_Entities*); */
 
 /* vector hold pointers to contexts */
