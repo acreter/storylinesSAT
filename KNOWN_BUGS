@@ -1,3 +1,2 @@
 1. solving an instance multiple times yields unexpected behaviour
 2. the drawing engine leakes memory
-3. the memory allocation for the instance does not scale dynamically, make sure to stay within the limits defined in "slsolver.h"
