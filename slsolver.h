@@ -12,6 +12,7 @@ typedef void* Solution;
 struct Result {
 	double time_spent_in_solver; /* time in seconds */
 	unsigned long number_of_block_crossings;
+	unsigned long number_of_context_groups;
 	Solution solution;
 };
 

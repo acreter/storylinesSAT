@@ -40,6 +40,7 @@ storylines_solve(Storylines* sl) {
 	build_ec_map(sl);
 	r->time_spent_in_solver = 0;
 	find_contextgroups(sl);
+	r->number_of_context_groups = sl->contextgroups->number_of_elements;
 #ifndef NDEBUG
 	debug_dump_storylines(sl);
 #endif
