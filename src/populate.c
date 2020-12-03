@@ -10,7 +10,7 @@ storylines_add_entity(Storylines * storylines,
 		Time_t time_starting,
 		Time_t time_ending,
 		unsigned int alias) {
-	if (time_ending < time_starting || time_ending > storylines->max_time) return 1;
+	if (time_ending < time_starting || time_ending > storylines->max_time || !alias) return 1;
 
 	Entity e = {storylines->entities->number_of_elements, alias, time_starting, time_ending};
 	acvector_append(&(storylines->entities), &e);
