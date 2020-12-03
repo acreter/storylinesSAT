@@ -16,8 +16,12 @@ src/acvector/src/acvector.o: src/acvector/src/acvector.c src/acvector/src/acvect
 
 clean:
 	make -C src/acvector clean
+	make -C example clean
 	rm -rf build
 	rm -f src/*.o
 	rm -f src/draw/*.o
 
-.PHONY: all clean
+example:
+	make -C example
+
+.PHONY: all clean example

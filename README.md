@@ -9,6 +9,9 @@ that adheres to the interface given in [`src/csolver.h`](src/csolver.h).
 Building
 ========
 
+If you're unfamiliar with compiling and linking C projects or just want a simple
+binary, then skip ahead to `Example`.
+
 The software provides two libraries:
 - libslsolve.a
 - libsldraw.a
@@ -20,6 +23,19 @@ Before building any module make sure to initialize the git submodule with `git s
 To build the solver module run `make build/libslsolve.a`. For the drawer module run `make build/libsldraw.a`.
 Alternatively `make all` builds both.
 
+Example
+=======
+
+The [`example`](example) directory provides an example on how to use the storylines
+library. It implements a parser to read instances from input files, solves and
+draws the storyline. It is therefore also suited for users that do not want
+to integrate the library into their own code and focus on quick results.
+You can build it with `make example`.
+See [`example/README.md`](example/README.md) for details.
+
+Note that the example code draws the storylines by default which makes [plotutils](https://www.gnu.org/software/plotutils/)
+a requirement.
+
 Usage
 =====
 
@@ -27,6 +43,6 @@ Since this software does not provide a binary, it's only real use comes from
 you linking it into your code. Remember to also link a solver that implements
 the interface described in [`src/csolver.h`](src/csolver.h), for example
 [CaDiCaL](https://github.com/acreter/cadical) or [minisat](https://github.com/acreter/minisat). For the drawer module you must also link `libplot.a`
-and `lm.a`.
+and `lm.a`. Note that the order of linking is important. See [`example/makefile`](example/makefile) for an example.
 
 The API for the provided libraries is described in [`slsolver.h`](slsolver.h) and [`sldrawer.h`](sldrawer.h) respectively.
