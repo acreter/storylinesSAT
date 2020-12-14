@@ -14,6 +14,7 @@ There are two compiletime dependencies:
 - [GNU make](https://www.gnu.org/software/make/).
 - [GNU Compiler Collection](https://www.gnu.org/software/gcc/).
 
+Other compilers might work as well but have not been tested.
 The software does not have any runtime dependecies.
 
 The software provides a library and two binaries:
