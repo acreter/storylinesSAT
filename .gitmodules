@@ -1,0 +1,9 @@
+[submodule "acvector"]
+	path = acvector
+	url = https://github.com/acreter/acvector
+[submodule "minisat"]
+	path = minisat
+	url = https://github.com/acreter/minisat
+[submodule "cadical"]
+	path = cadical
+	url = https://github.com/acreter/cadical
