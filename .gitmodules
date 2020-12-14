@@ -1,9 +1,0 @@
-[submodule "src/acvector"]
-	path = src/acvector
-	url = https://github.com/acreter/acvector.git
-[submodule "example/src/cadical"]
-	path = example/src/cadical
-	url = https://github.com/acreter/cadical
-[submodule "example/src/minisat"]
-	path = example/src/minisat
-	url = https://github.com/acreter/minisat
