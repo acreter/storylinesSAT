@@ -422,6 +422,50 @@ storyline_solve(
 					}
 				}
 			}
+			for (
+				acVector** group = acvector_get_first(&inter);
+				group <= (acVector**) acvector_get_last(&inter);
+				group += 1
+			) {
+				for (
+					unsigned int* g = acvector_get_first(group);
+					g <= (unsigned int*) acvector_get_last(group);
+					g += *g * 2 + 3
+				) {
+					if (*g <= 1) continue;
+					for (
+						unsigned int* w = g + 3;
+						w < g + *g + 3;
+						w += 1
+					) {
+						for (
+							unsigned int* y = g + 3;
+							y < g + *g + 3;
+							y += 1
+						) {
+							if (w == y) continue;
+							for (
+								unsigned int* u = acvector_get_first(group);
+								u <= (unsigned int*) acvector_get_last(group);
+								u += *u * 2 + 3
+							) {
+								if (u == g) continue;
+								for (
+									unsigned int* z = u + 3;
+									z < u + *u + 3;
+									z += 1
+								) {
+									csolver_clausezt(solver,
+										-(inter_start + (group - (acVector**) acvector_get_first(&inter)) + n_lits * l),
+										n_entities * *y + *z + x + n_lits * l,
+										n_entities * *z + *w + x + n_lits * l, 0
+									);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 
 		unsigned int* clause = malloc((n_layers + 2) * sizeof (unsigned int));
