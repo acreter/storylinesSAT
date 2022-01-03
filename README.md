@@ -28,9 +28,9 @@ Alternatively `make all` builds everything.
 Usage
 =====
 
-The library modules is the heart of this software. It serves as a middleware
-between the user and the SAT solver. It therefore does not contain any solver.
-It is therefore up to you to provide a compliant solver. A solver is compliant if
+The library module is the heart of this software. It serves as a middleware
+between the user and the SAT solver. It therefore does not contain any solver and
+it is up to you to provide a compliant one. A solver is compliant if
 it implements the interface found in [`include/csolver.h`](include/csolver.h).
 As of now there are two solvers that meet this criteria:
 [CaDiCaL](https://github.com/acreter/cadical) and
